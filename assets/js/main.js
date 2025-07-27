@@ -8,7 +8,7 @@ const softwareData = [
         icon: "fas fa-code",
         version: "1.85.0",
         size: "95.2 MB",
-        downloads: 1250,
+        downloads: 0,
         downloadUrl: "software/windows/vscode/VSCodeSetup.exe",
         screenshots: ["assets/images/screenshots/vscode-1.jpg", "assets/images/screenshots/vscode-2.jpg"],
         category: "development",
@@ -24,7 +24,7 @@ const softwareData = [
         icon: "fab fa-chrome",
         version: "120.0.6099.109",
         size: "85.6 MB",
-        downloads: 2340,
+        downloads: 0,
         downloadUrl: "software/windows/chrome/ChromeSetup.exe",
         screenshots: [],
         category: "browser",
@@ -40,7 +40,7 @@ const softwareData = [
         icon: "fas fa-hammer",
         version: "15.1",
         size: "12.8 GB",
-        downloads: 890,
+        downloads: 0,
         downloadUrl: "software/macos/xcode/Xcode.dmg",
         screenshots: [],
         category: "development",
@@ -56,7 +56,7 @@ const softwareData = [
         icon: "fab fa-docker",
         version: "4.26.1",
         size: "540 MB",
-        downloads: 675,
+        downloads: 0,
         downloadUrl: "software/macos/docker/DockerDesktop.dmg",
         screenshots: []
     },
@@ -68,7 +68,7 @@ const softwareData = [
         icon: "fab fa-ubuntu",
         version: "22.04.3 LTS",
         size: "4.6 GB",
-        downloads: 1540,
+        downloads: 0,
         downloadUrl: "software/linux/ubuntu/ubuntu-22.04.3-desktop-amd64.iso",
         screenshots: []
     },
@@ -80,7 +80,7 @@ const softwareData = [
         icon: "fas fa-play-circle",
         version: "3.0.20",
         size: "42.3 MB",
-        downloads: 980,
+        downloads: 0,
         downloadUrl: "software/linux/vlc/vlc-3.0.20.deb",
         screenshots: []
     },
@@ -92,7 +92,7 @@ const softwareData = [
         icon: "fab fa-telegram",
         version: "10.5.2",
         size: "89.4 MB",
-        downloads: 3450,
+        downloads: 0,
         downloadUrl: "software/mobile/telegram/telegram.apk",
         screenshots: []
     },
@@ -104,7 +104,7 @@ const softwareData = [
         icon: "fab fa-whatsapp",
         version: "2.23.25.76",
         size: "65.2 MB",
-        downloads: 5670,
+        downloads: 0,
         downloadUrl: "software/mobile/whatsapp/whatsapp.apk",
         screenshots: []
     }
@@ -212,7 +212,7 @@ function setupEventListeners() {
     window.addEventListener('scroll', handleScroll);
 }
 
-// 更新统计数据
+// 更新统计数据（将在README查看器中处理真实数据）
 function updateStats() {
     const platformCounts = {
         windows: 0,
@@ -221,20 +221,21 @@ function updateStats() {
         mobile: 0
     };
 
-    let totalDownloads = 0;
-
     softwareData.forEach(software => {
         platformCounts[software.platform]++;
-        totalDownloads += software.downloads;
     });
 
-    // 更新页面显示
+    // 更新页面显示 - 软件数量使用真实数据
     document.getElementById('totalSoftware').textContent = softwareData.length + '+';
-    document.getElementById('totalDownloads').textContent = formatNumber(totalDownloads) + '+';
+    
+    // 平台计数使用真实数据
     document.getElementById('windowsCount').textContent = platformCounts.windows;
     document.getElementById('macosCount').textContent = platformCounts.macos;
     document.getElementById('linuxCount').textContent = platformCounts.linux;
     document.getElementById('mobileCount').textContent = platformCounts.mobile;
+    
+    // 总下载量将由readme-viewer.js中的真实统计系统处理
+    // 这里不再使用软件数据中的假下载量
 }
 
 // 渲染软件卡片

@@ -21,18 +21,37 @@ class ReadmeViewer {
             this.statistics.softwareDownloads = {};
             this.statistics.visitHistory = [];
             this.statistics.startDate = new Date().toISOString();
+            this.statistics.uniqueVisitors = new Set();
+            this.statistics.dailyStats = {};
         }
+        
+        // 更新主页面的统计显示
+        this.updateMainPageStats();
         this.saveStatistics();
     }
 
     // 跟踪页面访问
     trackPageView() {
         this.statistics.pageViews++;
+        const today = new Date().toDateString();
+        
+        // 记录每日统计
+        if (!this.statistics.dailyStats[today]) {
+            this.statistics.dailyStats[today] = {
+                views: 0,
+                downloads: 0,
+                uniqueVisitors: new Set()
+            };
+        }
+        this.statistics.dailyStats[today].views++;
+        
+        // 记录访问历史
         this.statistics.visitHistory.push({
             timestamp: new Date().toISOString(),
             userAgent: navigator.userAgent,
             referrer: document.referrer,
-            url: window.location.href
+            url: window.location.href,
+            ip: this.generateVisitorId() // 生成访客唯一标识
         });
 
         // 限制历史记录数量
@@ -42,11 +61,23 @@ class ReadmeViewer {
 
         this.saveStatistics();
         this.updateStatisticsWidget();
+        this.updateMainPageStats();
     }
 
     // 跟踪软件下载
     trackSoftwareDownload(softwareId, softwareName) {
         this.statistics.totalDownloads++;
+        const today = new Date().toDateString();
+        
+        // 更新每日下载统计
+        if (!this.statistics.dailyStats[today]) {
+            this.statistics.dailyStats[today] = {
+                views: 0,
+                downloads: 0,
+                uniqueVisitors: new Set()
+            };
+        }
+        this.statistics.dailyStats[today].downloads++;
         
         if (!this.statistics.softwareDownloads[softwareId]) {
             this.statistics.softwareDownloads[softwareId] = {
@@ -59,17 +90,20 @@ class ReadmeViewer {
         this.statistics.softwareDownloads[softwareId].count++;
         this.statistics.softwareDownloads[softwareId].history.push({
             timestamp: new Date().toISOString(),
-            userAgent: navigator.userAgent
+            userAgent: navigator.userAgent,
+            visitorId: this.generateVisitorId()
         });
 
-        // 更新软件数据中的下载量
+        // 更新软件数据中的下载量（保持真实数据）
         const software = softwareData.find(app => app.id === softwareId);
         if (software) {
+            // 使用真实统计数据而不是假数据
             software.downloads = this.statistics.softwareDownloads[softwareId].count;
         }
 
         this.saveStatistics();
         this.updateStatisticsWidget();
+        this.updateMainPageStats();
         
         // 显示下载通知
         this.showDownloadNotification(softwareName);
@@ -660,14 +694,93 @@ cd ${software.name.toLowerCase().replace(/\s+/g, '-')}
         return names[platform] || platform;
     }
 
+    // 更新主页面统计数据
+    updateMainPageStats() {
+        // 更新英雄区域的统计数据
+        const totalSoftwareEl = document.getElementById('totalSoftware');
+        const totalDownloadsEl = document.getElementById('totalDownloads');
+        
+        if (totalSoftwareEl) {
+            totalSoftwareEl.textContent = softwareData.length + '+';
+        }
+        
+        if (totalDownloadsEl) {
+            // 使用真实下载统计而不是软件数据中的假数据
+            totalDownloadsEl.textContent = this.formatNumber(this.statistics.totalDownloads) + '+';
+        }
+        
+        // 更新平台统计数据
+        const platformCounts = {
+            windows: 0,
+            macos: 0,
+            linux: 0,
+            mobile: 0
+        };
+
+        softwareData.forEach(software => {
+            platformCounts[software.platform]++;
+        });
+
+        const windowsCountEl = document.getElementById('windowsCount');
+        const macosCountEl = document.getElementById('macosCount');
+        const linuxCountEl = document.getElementById('linuxCount');
+        const mobileCountEl = document.getElementById('mobileCount');
+
+        if (windowsCountEl) windowsCountEl.textContent = platformCounts.windows;
+        if (macosCountEl) macosCountEl.textContent = platformCounts.macos;
+        if (linuxCountEl) linuxCountEl.textContent = platformCounts.linux;
+        if (mobileCountEl) mobileCountEl.textContent = platformCounts.mobile;
+    }
+
+    // 生成访客唯一标识
+    generateVisitorId() {
+        let visitorId = localStorage.getItem('visitor_id');
+        if (!visitorId) {
+            visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('visitor_id', visitorId);
+        }
+        return visitorId;
+    }
+
+    // 获取今日新增下载量
+    getTodayDownloads() {
+        const today = new Date().toDateString();
+        return this.statistics.dailyStats[today] ? this.statistics.dailyStats[today].downloads : 0;
+    }
+
     // 存储管理
     loadStatistics() {
         const saved = localStorage.getItem('website_statistics');
-        return saved ? JSON.parse(saved) : {};
+        try {
+            const data = saved ? JSON.parse(saved) : {};
+            // 处理 Set 对象的序列化问题
+            if (data.dailyStats) {
+                Object.keys(data.dailyStats).forEach(date => {
+                    if (data.dailyStats[date].uniqueVisitors && Array.isArray(data.dailyStats[date].uniqueVisitors)) {
+                        data.dailyStats[date].uniqueVisitors = new Set(data.dailyStats[date].uniqueVisitors);
+                    }
+                });
+            }
+            return data;
+        } catch (e) {
+            console.warn('统计数据解析失败，重置数据');
+            return {};
+        }
     }
 
     saveStatistics() {
-        localStorage.setItem('website_statistics', JSON.stringify(this.statistics));
+        try {
+            // 处理 Set 对象的序列化
+            const dataToSave = JSON.parse(JSON.stringify(this.statistics, (key, value) => {
+                if (value instanceof Set) {
+                    return Array.from(value);
+                }
+                return value;
+            }));
+            localStorage.setItem('website_statistics', JSON.stringify(dataToSave));
+        } catch (e) {
+            console.warn('统计数据保存失败:', e);
+        }
     }
 }
 
