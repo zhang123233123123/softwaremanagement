@@ -1,3 +1,5 @@
+# 文件名: .github/workflows/your-file-name.yml
+
 name: 部署到 GitHub Pages
 
 on:
@@ -92,16 +94,19 @@ jobs:
         EOF
         
     - name: 设置 Pages
-      uses: actions/configure-pages@v3
+      # [修改] v3 已过时，升级到 v5
+      uses: actions/configure-pages@v5
       
     - name: 上传构建产物
-      uses: actions/upload-pages-artifact@v2
+      # [修改] v2 已过时，升级到 v3
+      uses: actions/upload-pages-artifact@v3
       with:
         path: '.'
         
     - name: 部署到 GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v2
+      # [修改] v2 已过时，升级到 v4
+      uses: actions/deploy-pages@v4
 
   validate:
     runs-on: ubuntu-latest
