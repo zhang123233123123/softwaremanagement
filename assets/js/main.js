@@ -378,6 +378,19 @@ function closeModalWindow() {
 
 // 下载软件
 function downloadSoftware(url, name) {
+    // 找到对应的软件对象
+    const software = softwareData.find(app => app.name === name);
+    if (software && readmeViewer) {
+        // 使用readmeViewer的下载方法，会显示为爱发电模态框
+        readmeViewer.downloadSoftware(software);
+    } else {
+        // 如果找不到软件对象，直接下载
+        proceedWithDirectDownload(url, name);
+    }
+}
+
+// 直接下载（备用方法）
+function proceedWithDirectDownload(url, name) {
     // 显示下载提示
     showNotification(`开始下载 ${name}`, 'success');
     

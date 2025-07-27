@@ -509,6 +509,65 @@ cd ${software.name.toLowerCase().replace(/\s+/g, '-')}
 
     // 下载软件
     downloadSoftware(software) {
+        // 先显示为爱发电提示，然后执行下载
+        this.showDonationModal(software);
+    }
+
+    // 显示为爱发电模态框
+    showDonationModal(software) {
+        const modal = document.createElement('div');
+        modal.className = 'modal donation-modal';
+        modal.innerHTML = `
+            <div class="modal-content donation-modal-content">
+                <div class="donation-header">
+                    <h3><i class="fas fa-heart" style="color: var(--system-pink);"></i> 为爱发电</h3>
+                    <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
+                </div>
+                <div class="donation-body">
+                    <p>如果这个软件对您有帮助，请考虑支持我们的工作！</p>
+                    <div class="qr-codes-inline">
+                        <div class="qr-card-small">
+                            <div class="qr-image-small">
+                                <img src="assets/images/alipay-qr.jpg" alt="支付宝">
+                            </div>
+                            <span>支付宝</span>
+                        </div>
+                        <div class="qr-card-small">
+                            <div class="qr-image-small">
+                                <img src="assets/images/wechat-qr.jpg" alt="微信">
+                            </div>
+                            <span>微信</span>
+                        </div>
+                    </div>
+                    <div class="donation-actions">
+                        <button class="action-btn secondary" onclick="this.closest('.modal').remove()">
+                            <i class="fas fa-times"></i> 不了，谢谢
+                        </button>
+                        <button class="action-btn primary" onclick="readmeViewer.proceedWithDownload('${software.id}'); this.closest('.modal').remove();">
+                            <i class="fas fa-download"></i> 继续下载
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        modal.style.display = 'block';
+        
+        // 3秒后自动开始下载（用户体验优化）
+        setTimeout(() => {
+            if (modal.parentNode) {
+                this.proceedWithDownload(software.id);
+                document.body.removeChild(modal);
+            }
+        }, 3000);
+    }
+
+    // 执行实际下载
+    proceedWithDownload(softwareId) {
+        const software = softwareData.find(app => app.id == softwareId);
+        if (!software) return;
+
         // 跟踪下载
         this.trackSoftwareDownload(software.id, software.name);
         

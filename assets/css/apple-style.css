@@ -52,9 +52,28 @@
     --radius-xl: 24px;
 }
 
-/* Dark Mode Support */
+/* 强制使用明亮模式颜色，确保文字清晰可见 */
+:root {
+    --label-primary: #000000 !important;
+    --label-secondary: #3C3C43 !important;
+    --label-tertiary: #3C3C4399 !important;
+    --label-quaternary: #3C3C434C !important;
+    
+    --separator: #3C3C434C !important;
+    --opaque-separator: #C6C6C8 !important;
+    
+    --system-background: #FFFFFF !important;
+    --secondary-system-background: #F2F2F7 !important;
+    --tertiary-system-background: #FFFFFF !important;
+    
+    --system-grouped-background: #F2F2F7 !important;
+    --secondary-system-grouped-background: #FFFFFF !important;
+    --tertiary-system-grouped-background: #F2F2F7 !important;
+}
+
+/* Dark Mode Support - 可选择性启用 */
 @media (prefers-color-scheme: dark) {
-    :root {
+    body.dark-mode {
         --label-primary: #FFFFFF;
         --label-secondary: #EBEBF5;
         --label-tertiary: #EBEBF599;
