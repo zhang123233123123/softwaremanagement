@@ -8,9 +8,19 @@ on:
   pull_request:
     branches: [ main ]
 
+# [新增] 设置并发控制，确保一次只运行一个部署，自动取消旧的部署
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    
+    # [新增] 指定部署环境，这是新版本部署工具的强制要求
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     
     permissions:
       contents: read
@@ -94,18 +104,15 @@ jobs:
         EOF
         
     - name: 设置 Pages
-      # [修改] v3 已过时，升级到 v5
       uses: actions/configure-pages@v5
       
     - name: 上传构建产物
-      # [修改] v2 已过时，升级到 v3
       uses: actions/upload-pages-artifact@v3
       with:
         path: '.'
         
     - name: 部署到 GitHub Pages
       id: deployment
-      # [修改] v2 已过时，升级到 v4
       uses: actions/deploy-pages@v4
 
   validate:
