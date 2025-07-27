@@ -1,0 +1,129 @@
+{
+  "site": {
+    "title": "软件管理平台",
+    "description": "专业的软件下载和管理平台，提供Windows、macOS、Linux等多平台软件下载",
+    "author": "软件管理团队",
+    "keywords": ["软件下载", "软件管理", "多平台", "开源"],
+    "url": "https://zhang123233123123.github.io/softwaremanagement",
+    "github": "https://github.com/zhang123233123123/softwaremanagement"
+  },
+  "platforms": {
+    "windows": {
+      "name": "Windows",
+      "icon": "fab fa-windows",
+      "color": "#0078d4",
+      "supportedFormats": [".exe", ".msi", ".zip"]
+    },
+    "macos": {
+      "name": "macOS", 
+      "icon": "fab fa-apple",
+      "color": "#007aff",
+      "supportedFormats": [".dmg", ".pkg", ".app.zip"]
+    },
+    "linux": {
+      "name": "Linux",
+      "icon": "fab fa-linux", 
+      "color": "#f39c12",
+      "supportedFormats": [".deb", ".rpm", ".tar.gz", ".appimage"]
+    },
+    "mobile": {
+      "name": "移动端",
+      "icon": "fas fa-mobile-alt",
+      "color": "#27ae60", 
+      "supportedFormats": [".apk", ".ipa"]
+    }
+  },
+  "features": {
+    "maxFileSize": "500MB",
+    "allowedFileTypes": [
+      "application/octet-stream",
+      "application/x-msdos-program", 
+      "application/x-debian-package",
+      "application/x-rpm",
+      "application/gzip",
+      "application/zip"
+    ],
+    "enableDownloadStats": true,
+    "enableSearch": true,
+    "enableScreenshots": true,
+    "maxScreenshots": 5
+  },
+  "ui": {
+    "theme": {
+      "primaryColor": "#2c3e50",
+      "secondaryColor": "#3498db", 
+      "accentColor": "#e74c3c",
+      "successColor": "#27ae60",
+      "warningColor": "#f39c12"
+    },
+    "animation": {
+      "enableAnimations": true,
+      "animationDuration": "0.3s",
+      "enableParallax": true
+    },
+    "layout": {
+      "maxWidth": "1200px",
+      "cardColumns": "auto-fit",
+      "minCardWidth": "300px"
+    }
+  },
+  "seo": {
+    "enableSitemap": true,
+    "enableRobots": true,
+    "enableStructuredData": true,
+    "socialMedia": {
+      "twitter": "@softwaremanagement",
+      "facebook": "softwaremanagement",
+      "linkedin": "company/softwaremanagement"
+    }
+  },
+  "analytics": {
+    "googleAnalytics": "",
+    "enableHeatmaps": false,
+    "trackDownloads": true,
+    "trackUserInteractions": true
+  },
+  "security": {
+    "enableCSP": true,
+    "enableHSTS": true,
+    "requireHTTPS": true,
+    "scanUploads": true
+  },
+  "backup": {
+    "enableAutoBackup": true,
+    "backupInterval": "24h",
+    "backupLocation": "backups/",
+    "maxBackups": 30
+  },
+  "admin": {
+    "enableAdminPanel": false,
+    "adminUsers": [],
+    "moderationRequired": false,
+    "autoApproveUploads": true
+  },
+  "api": {
+    "enableAPI": false,
+    "apiVersion": "v1",
+    "rateLimiting": {
+      "enabled": true,
+      "requestsPerMinute": 60
+    }
+  },
+  "cdn": {
+    "enabled": false,
+    "provider": "github",
+    "baseUrl": "https://raw.githubusercontent.com/zhang123233123123/softwaremanagement/main/"
+  },
+  "notifications": {
+    "enablePushNotifications": false,
+    "enableEmailNotifications": false,
+    "notificationChannels": ["web", "email"]
+  },
+  "maintenance": {
+    "maintenanceMode": false,
+    "maintenanceMessage": "网站正在维护中，请稍后访问。",
+    "allowedIPs": []
+  },
+  "version": "1.0.0",
+  "lastUpdated": "2024-01-15T10:00:00Z"
+}

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="专业的软件下载和管理平台，提供Windows、macOS、Linux等多平台软件下载">
+    <meta name="keywords" content="软件下载,软件管理,Windows软件,macOS软件,Linux软件,移动应用,免费软件">
+    <meta name="author" content="软件管理团队">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zhang123233123123.github.io/softwaremanagement/">
+    <meta property="og:title" content="软件管理平台 - 专业软件下载中心">
+    <meta property="og:description" content="专业的软件下载和管理平台，提供Windows、macOS、Linux等多平台软件下载">
+    <meta property="og:image" content="https://zhang123233123123.github.io/softwaremanagement/assets/images/logo.svg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://zhang123233123123.github.io/softwaremanagement/">
+    <meta property="twitter:title" content="软件管理平台 - 专业软件下载中心">
+    <meta property="twitter:description" content="专业的软件下载和管理平台，提供Windows、macOS、Linux等多平台软件下载">
+    <meta property="twitter:image" content="https://zhang123233123123.github.io/softwaremanagement/assets/images/logo.svg">
+    
+    <!-- 网站图标 -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="assets/images/icons/icon-192x192.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- 主题色 -->
+    <meta name="theme-color" content="#3498db">
+    <meta name="msapplication-TileColor" content="#3498db">
+    
+    <title>软件管理平台 - 专业软件下载中心</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-download"></i>
+                <span>软件中心</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#windows">Windows</a></li>
+                <li><a href="#macos">macOS</a></li>
+                <li><a href="#linux">Linux</a></li>
+                <li><a href="#mobile">移动端</a></li>
+            </ul>
+            <div class="search-box">
+                <input type="text" placeholder="搜索软件..." id="searchInput">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>专业软件下载平台</h1>
+            <p>安全、快速、免费的软件下载服务，支持多平台软件管理</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <h3 id="totalSoftware">50+</h3>
+                    <p>软件数量</p>
+                </div>
+                <div class="stat">
+                    <h3 id="totalDownloads">10K+</h3>
+                    <p>总下载量</p>
+                </div>
+                <div class="stat">
+                    <h3>4</h3>
+                    <p>支持平台</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="floating-icons">
+                <i class="fab fa-windows"></i>
+                <i class="fab fa-apple"></i>
+                <i class="fab fa-linux"></i>
+                <i class="fab fa-android"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- 平台分类 -->
+    <section class="platforms" id="platforms">
+        <div class="container">
+            <h2>选择您的平台</h2>
+            <div class="platform-grid">
+                <div class="platform-card" data-platform="windows" id="windows">
+                    <div class="platform-icon">
+                        <i class="fab fa-windows"></i>
+                    </div>
+                    <h3>Windows</h3>
+                    <p>适用于Windows 10/11的软件</p>
+                    <div class="software-count">
+                        <span id="windowsCount">15</span> 个软件
+                    </div>
+                    <button class="view-btn">查看软件</button>
+                </div>
+
+                <div class="platform-card" data-platform="macos" id="macos">
+                    <div class="platform-icon">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                    <h3>macOS</h3>
+                    <p>适用于Mac系统的软件</p>
+                    <div class="software-count">
+                        <span id="macosCount">12</span> 个软件
+                    </div>
+                    <button class="view-btn">查看软件</button>
+                </div>
+
+                <div class="platform-card" data-platform="linux" id="linux">
+                    <div class="platform-icon">
+                        <i class="fab fa-linux"></i>
+                    </div>
+                    <h3>Linux</h3>
+                    <p>适用于各种Linux发行版</p>
+                    <div class="software-count">
+                        <span id="linuxCount">18</span> 个软件
+                    </div>
+                    <button class="view-btn">查看软件</button>
+                </div>
+
+                <div class="platform-card" data-platform="mobile" id="mobile">
+                    <div class="platform-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>移动端</h3>
+                    <p>Android 和 iOS 应用</p>
+                    <div class="software-count">
+                        <span id="mobileCount">8</span> 个软件
+                    </div>
+                    <button class="view-btn">查看软件</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 软件展示区域 -->
+    <section class="software-showcase" id="software-list">
+        <div class="container">
+            <h2>热门软件</h2>
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="windows">Windows</button>
+                <button class="filter-btn" data-filter="macos">macOS</button>
+                <button class="filter-btn" data-filter="linux">Linux</button>
+                <button class="filter-btn" data-filter="mobile">移动端</button>
+            </div>
+            <div class="software-grid" id="softwareGrid">
+                <!-- 软件卡片将通过JavaScript动态加载 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 特色功能 -->
+    <section class="features">
+        <div class="container">
+            <h2>平台特色</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>安全可靠</h3>
+                    <p>所有软件经过严格安全检测，确保无病毒无恶意代码</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>高速下载</h3>
+                    <p>采用CDN加速技术，提供极速下载体验</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>及时更新</h3>
+                    <p>软件版本及时更新，确保用户使用最新版本</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>专业支持</h3>
+                    <p>提供专业的技术支持和使用指导</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>软件中心</h3>
+                    <p>专业的软件下载和管理平台</p>
+                    <div class="social-links">
+                        <a href="https://github.com/zhang123233123123/softwaremanagement" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>平台支持</h4>
+                    <ul>
+                        <li><a href="#windows">Windows</a></li>
+                        <li><a href="#macos">macOS</a></li>
+                        <li><a href="#linux">Linux</a></li>
+                        <li><a href="#mobile">移动端</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>帮助中心</h4>
+                    <ul>
+                        <li><a href="#help">使用指南</a></li>
+                        <li><a href="#faq">常见问题</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                        <li><a href="#feedback">意见反馈</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 软件管理平台. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 软件详情模态框 -->
+    <div class="modal" id="softwareModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="software-detail">
+                    <img id="modalIcon" src="" alt="">
+                    <div class="software-info">
+                        <h2 id="modalTitle"></h2>
+                        <p id="modalDescription"></p>
+                        <div class="software-meta">
+                            <span class="version">版本: <span id="modalVersion"></span></span>
+                            <span class="size">大小: <span id="modalSize"></span></span>
+                            <span class="downloads">下载量: <span id="modalDownloads"></span></span>
+                        </div>
+                        <div class="download-buttons">
+                            <button class="download-btn primary" id="primaryDownload">
+                                <i class="fas fa-download"></i> 立即下载
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="software-screenshots" id="modalScreenshots">
+                    <!-- 截图将动态加载 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/feedback.js"></script>
+    <script src="assets/js/version-manager.js"></script>
+    <script src="assets/js/advanced-search.js"></script>
+    <script src="assets/js/software-details.js"></script>
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "软件管理平台",
+        "description": "专业的软件下载和管理平台，提供Windows、macOS、Linux等多平台软件下载",
+        "url": "https://zhang123233123123.github.io/softwaremanagement/",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://zhang123233123123.github.io/softwaremanagement/#search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆角矩形 -->
+  <rect width="200" height="60" rx="12" fill="url(#gradient)"/>
+  
+  <!-- 下载图标 -->
+  <g transform="translate(15, 12)">
+    <rect x="8" y="4" width="20" height="16" rx="2" stroke="white" stroke-width="2" fill="none"/>
+    <path d="M18 10L18 18M14 14L18 18L22 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M10 28L26 28" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  
+  <!-- 文字 -->
+  <text x="55" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="white">软件中心</text>
+  <text x="55" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="rgba(255,255,255,0.8)">Software Center</text>
+  
+  <!-- 装饰元素 -->
+  <circle cx="170" cy="15" r="3" fill="rgba(255,255,255,0.3)"/>
+  <circle cx="180" cy="25" r="2" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="175" cy="35" r="2.5" fill="rgba(255,255,255,0.25)"/>
+  
+  <!-- 渐变定义 -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2c3e50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3498db;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

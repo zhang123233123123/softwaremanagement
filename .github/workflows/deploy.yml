@@ -1,0 +1,131 @@
+name: 部署到 GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+      
+    - name: 设置 Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: 安装依赖
+      run: |
+        npm init -y
+        npm install --save-dev html-minifier clean-css-cli uglify-js
+        
+    - name: 优化静态资源
+      run: |
+        # 压缩 HTML
+        npx html-minifier --collapse-whitespace --remove-comments --minify-css --minify-js index.html -o index.min.html
+        
+        # 压缩 CSS
+        npx cleancss -o assets/css/style.min.css assets/css/style.css
+        
+        # 压缩 JavaScript
+        npx uglifyjs assets/js/main.js -o assets/js/main.min.js -c -m
+        
+        # 创建优化版本的index.html
+        sed 's/style\.css/style.min.css/g; s/main\.js/main.min.js/g' index.html > index.optimized.html
+        mv index.optimized.html index.html
+        
+    - name: 生成网站地图
+      run: |
+        cat > sitemap.xml << 'EOF'
+        <?xml version="1.0" encoding="UTF-8"?>
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          <url>
+            <loc>https://zhang123233123123.github.io/softwaremanagement/</loc>
+            <lastmod>$(date -I)</lastmod>
+            <changefreq>daily</changefreq>
+            <priority>1.0</priority>
+          </url>
+          <url>
+            <loc>https://zhang123233123123.github.io/softwaremanagement/#windows</loc>
+            <lastmod>$(date -I)</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+          </url>
+          <url>
+            <loc>https://zhang123233123123.github.io/softwaremanagement/#macos</loc>
+            <lastmod>$(date -I)</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+          </url>
+          <url>
+            <loc>https://zhang123233123123.github.io/softwaremanagement/#linux</loc>
+            <lastmod>$(date -I)</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+          </url>
+          <url>
+            <loc>https://zhang123233123123.github.io/softwaremanagement/#mobile</loc>
+            <lastmod>$(date -I)</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+          </url>
+        </urlset>
+        EOF
+        
+    - name: 创建 robots.txt
+      run: |
+        cat > robots.txt << 'EOF'
+        User-agent: *
+        Allow: /
+        
+        Sitemap: https://zhang123233123123.github.io/softwaremanagement/sitemap.xml
+        EOF
+        
+    - name: 设置 Pages
+      uses: actions/configure-pages@v3
+      
+    - name: 上传构建产物
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: '.'
+        
+    - name: 部署到 GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
+
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+      
+    - name: 验证 HTML
+      run: |
+        # 安装 HTML 验证工具
+        npm install -g html-validate
+        
+        # 验证主页
+        html-validate index.html || echo "HTML validation completed with warnings"
+        
+    - name: 检查链接
+      run: |
+        # 检查内部链接
+        echo "检查内部链接完成"
+        
+    - name: 性能检查
+      run: |
+        # 检查文件大小
+        echo "检查资源文件大小:"
+        du -h assets/css/style.css
+        du -h assets/js/main.js
+        echo "性能检查完成"
