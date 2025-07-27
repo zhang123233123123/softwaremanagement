@@ -1,113 +1,23 @@
-// 软件数据配置
+// 软件数据配置 - 空数组，等待用户添加真实软件
 const softwareData = [
-    {
-        id: 1,
-        name: "Visual Studio Code",
-        description: "轻量级但功能强大的源代码编辑器",
-        platform: "windows",
-        icon: "fas fa-code",
-        version: "1.85.0",
-        size: "95.2 MB",
-        downloads: 0,
-        downloadUrl: "software/windows/vscode/VSCodeSetup.exe",
-        screenshots: ["assets/images/screenshots/vscode-1.jpg", "assets/images/screenshots/vscode-2.jpg"],
-        category: "development",
-        tags: ["编辑器", "开发工具", "IDE", "微软"],
-        rating: 4.8,
-        lastUpdated: "2024-01-10"
-    },
-    {
-        id: 2,
-        name: "Chrome Browser",
-        description: "快速、安全的网络浏览器",
-        platform: "windows",
-        icon: "fab fa-chrome",
-        version: "120.0.6099.109",
-        size: "85.6 MB",
-        downloads: 0,
-        downloadUrl: "software/windows/chrome/ChromeSetup.exe",
-        screenshots: [],
-        category: "browser",
-        tags: ["浏览器", "网络", "谷歌"],
-        rating: 4.6,
-        lastUpdated: "2024-01-08"
-    },
-    {
-        id: 3,
-        name: "Xcode",
-        description: "苹果官方开发工具集",
-        platform: "macos",
-        icon: "fas fa-hammer",
-        version: "15.1",
-        size: "12.8 GB",
-        downloads: 0,
-        downloadUrl: "software/macos/xcode/Xcode.dmg",
-        screenshots: [],
-        category: "development",
-        tags: ["开发工具", "IDE", "苹果", "iOS"],
-        rating: 4.4,
-        lastUpdated: "2024-01-05"
-    },
-    {
-        id: 4,
-        name: "Docker Desktop",
-        description: "容器化应用开发平台",
-        platform: "macos",
-        icon: "fab fa-docker",
-        version: "4.26.1",
-        size: "540 MB",
-        downloads: 0,
-        downloadUrl: "software/macos/docker/DockerDesktop.dmg",
-        screenshots: []
-    },
-    {
-        id: 5,
-        name: "Ubuntu Desktop",
-        description: "用户友好的Linux发行版",
-        platform: "linux",
-        icon: "fab fa-ubuntu",
-        version: "22.04.3 LTS",
-        size: "4.6 GB",
-        downloads: 0,
-        downloadUrl: "software/linux/ubuntu/ubuntu-22.04.3-desktop-amd64.iso",
-        screenshots: []
-    },
-    {
-        id: 6,
-        name: "VLC Media Player",
-        description: "免费的多媒体播放器",
-        platform: "linux",
-        icon: "fas fa-play-circle",
-        version: "3.0.20",
-        size: "42.3 MB",
-        downloads: 0,
-        downloadUrl: "software/linux/vlc/vlc-3.0.20.deb",
-        screenshots: []
-    },
-    {
-        id: 7,
-        name: "Telegram",
-        description: "安全的即时通讯应用",
-        platform: "mobile",
-        icon: "fab fa-telegram",
-        version: "10.5.2",
-        size: "89.4 MB",
-        downloads: 0,
-        downloadUrl: "software/mobile/telegram/telegram.apk",
-        screenshots: []
-    },
-    {
-        id: 8,
-        name: "WhatsApp",
-        description: "全球流行的消息应用",
-        platform: "mobile",
-        icon: "fab fa-whatsapp",
-        version: "2.23.25.76",
-        size: "65.2 MB",
-        downloads: 0,
-        downloadUrl: "software/mobile/whatsapp/whatsapp.apk",
-        screenshots: []
-    }
+    // 用户将在此处添加真实的软件数据
+    // 示例格式：
+    // {
+    //     id: 1,  // 唯一ID
+    //     name: "软件名称",
+    //     description: "软件描述",
+    //     platform: "windows", // windows/macos/linux/mobile
+    //     icon: "fas fa-code", // FontAwesome图标
+    //     version: "1.0.0",
+    //     size: "50 MB",
+    //     downloads: 0, // 保持为0，系统会自动统计
+    //     downloadUrl: "software/platform/软件名/文件名.exe",
+    //     screenshots: [], // 可选：截图数组
+    //     category: "development", // 软件分类
+    //     tags: ["标签1", "标签2"], // 软件标签
+    //     rating: 4.5, // 可选：评分
+    //     lastUpdated: "2024-01-15" // 更新日期
+    // }
 ];
 
 // DOM元素
@@ -381,7 +291,7 @@ function downloadSoftware(url, name) {
     // 找到对应的软件对象
     const software = softwareData.find(app => app.name === name);
     if (software && readmeViewer) {
-        // 使用readmeViewer的下载方法，会显示为爱发电模态框
+        // 使用readmeViewer的下载方法进行统计跟踪
         readmeViewer.downloadSoftware(software);
     } else {
         // 如果找不到软件对象，直接下载
