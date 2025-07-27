@@ -291,7 +291,12 @@ function renderSoftware(software) {
         card.addEventListener('click', (e) => {
             if (!e.target.closest('.download-btn')) {
                 const id = parseInt(card.getAttribute('data-id'));
-                showSoftwareModal(id);
+                // 优先显示README内容
+                if (typeof showSoftwareReadme === 'function') {
+                    showSoftwareReadme(id);
+                } else {
+                    showSoftwareModal(id);
+                }
             }
         });
     });

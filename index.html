@@ -33,6 +33,8 @@
     
     <title>软件管理平台 - 专业软件下载中心</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/apple-style.css">
+    <link rel="stylesheet" href="assets/css/readme-styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -50,9 +52,11 @@
                 <li><a href="#linux">Linux</a></li>
                 <li><a href="#mobile">移动端</a></li>
             </ul>
-            <div class="search-box">
-                <input type="text" placeholder="搜索软件..." id="searchInput">
-                <i class="fas fa-search"></i>
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="搜索软件..." id="searchInput">
+                </div>
             </div>
             <div class="hamburger">
                 <span></span>
@@ -104,7 +108,7 @@
                     <h3>Windows</h3>
                     <p>适用于Windows 10/11的软件</p>
                     <div class="software-count">
-                        <span id="windowsCount">15</span> 个软件
+                        <span id="windowsCount">15</span>
                     </div>
                     <button class="view-btn">查看软件</button>
                 </div>
@@ -116,7 +120,7 @@
                     <h3>macOS</h3>
                     <p>适用于Mac系统的软件</p>
                     <div class="software-count">
-                        <span id="macosCount">12</span> 个软件
+                        <span id="macosCount">12</span>
                     </div>
                     <button class="view-btn">查看软件</button>
                 </div>
@@ -128,7 +132,7 @@
                     <h3>Linux</h3>
                     <p>适用于各种Linux发行版</p>
                     <div class="software-count">
-                        <span id="linuxCount">18</span> 个软件
+                        <span id="linuxCount">18</span>
                     </div>
                     <button class="view-btn">查看软件</button>
                 </div>
@@ -140,7 +144,7 @@
                     <h3>移动端</h3>
                     <p>Android 和 iOS 应用</p>
                     <div class="software-count">
-                        <span id="mobileCount">8</span> 个软件
+                        <span id="mobileCount">8</span>
                     </div>
                     <button class="view-btn">查看软件</button>
                 </div>
@@ -274,6 +278,7 @@
     <script src="assets/js/version-manager.js"></script>
     <script src="assets/js/advanced-search.js"></script>
     <script src="assets/js/software-details.js"></script>
+    <script src="assets/js/readme-viewer.js"></script>
     
     <!-- 结构化数据 -->
     <script type="application/ld+json">
