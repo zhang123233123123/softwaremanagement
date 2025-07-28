@@ -177,6 +177,137 @@
     padding: 0 20px;
 }
 
+/* 表单分区 */
+.api-config-section,
+.file-upload-section,
+.software-info-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--separator);
+}
+
+.api-config-section:last-of-type,
+.file-upload-section:last-of-type,
+.software-info-section:last-of-type {
+    border-bottom: none;
+}
+
+.api-config-section h4,
+.file-upload-section h4,
+.software-info-section h4 {
+    font-family: var(--sf-pro-display);
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000 !important;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 文件上传区域 */
+.file-upload-area {
+    position: relative;
+    border: 2px dashed var(--separator);
+    border-radius: var(--radius-medium);
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: var(--tertiary-system-background);
+}
+
+.file-upload-area:hover {
+    border-color: var(--system-blue);
+    background: rgba(0, 122, 255, 0.05);
+}
+
+.file-upload-area.drag-over {
+    border-color: var(--system-blue);
+    background: rgba(0, 122, 255, 0.1);
+    transform: scale(1.02);
+}
+
+.file-upload-area input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-placeholder {
+    pointer-events: none;
+}
+
+.upload-placeholder i {
+    font-size: 48px;
+    color: var(--system-blue);
+    margin-bottom: 12px;
+}
+
+.upload-placeholder p {
+    font-size: 16px;
+    color: #000000 !important;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.upload-placeholder small {
+    color: #666666 !important;
+    font-size: 14px;
+}
+
+/* 文件信息显示 */
+.file-info {
+    margin-top: 12px;
+    padding: 12px;
+    background: var(--system-green);
+    color: white;
+    border-radius: var(--radius-small);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.file-info i {
+    font-size: 16px;
+}
+
+.file-info .file-details {
+    flex: 1;
+}
+
+.file-info .file-name {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.file-info .file-size {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.file-remove {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.file-remove:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
 .upload-card,
 .code-card,
 .software-list-card {

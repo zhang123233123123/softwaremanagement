@@ -60,84 +60,115 @@
             <div class="upload-card">
                 <h3><i class="fas fa-plus-circle"></i> 添加新软件</h3>
                 <form class="upload-form" onsubmit="handleSoftwareUpload(event)">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="softwareName">软件名称 *</label>
-                            <input type="text" id="softwareName" placeholder="例: Visual Studio Code" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="softwareVersion">版本号 *</label>
-                            <input type="text" id="softwareVersion" placeholder="例: 1.0.0" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="softwareDescription">软件描述 *</label>
-                        <textarea id="softwareDescription" placeholder="简短描述软件的功能和特点" required></textarea>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="softwarePlatform">平台 *</label>
-                            <select id="softwarePlatform" required>
-                                <option value="">请选择平台</option>
-                                <option value="windows">Windows</option>
-                                <option value="macos">macOS</option>
-                                <option value="linux">Linux</option>
-                                <option value="mobile">移动端</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="softwareCategory">分类</label>
-                            <select id="softwareCategory">
-                                <option value="development">开发工具</option>
-                                <option value="browser">浏览器</option>
-                                <option value="media">多媒体</option>
-                                <option value="office">办公软件</option>
-                                <option value="game">游戏</option>
-                                <option value="utility">实用工具</option>
-                                <option value="security">安全软件</option>
-                                <option value="other">其他</option>
-                            </select>
+                    <!-- GitHub API 配置 -->
+                    <div class="api-config-section">
+                        <h4><i class="fas fa-github"></i> GitHub API 配置</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="githubToken">GitHub Personal Access Token *</label>
+                                <input type="password" id="githubToken" placeholder="请输入您的GitHub Token" required>
+                                <small>需要 'repo' 权限。<a href="https://github.com/settings/tokens" target="_blank">点击获取Token</a></small>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-row">
+                    <!-- 文件上传区域 -->
+                    <div class="file-upload-section">
+                        <h4><i class="fas fa-upload"></i> 文件上传</h4>
+                        
                         <div class="form-group">
-                            <label for="softwareSize">文件大小 *</label>
-                            <input type="text" id="softwareSize" placeholder="例: 95.2 MB" required>
+                            <label for="softwareFile">软件文件 *</label>
+                            <div class="file-upload-area" id="softwareFileArea">
+                                <input type="file" id="softwareFile" accept=".exe,.msi,.dmg,.pkg,.deb,.rpm,.tar.gz,.zip,.apk,.ipa" required>
+                                <div class="upload-placeholder">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>点击选择或拖拽软件文件到此处</p>
+                                    <small>支持 .exe, .dmg, .deb, .apk 等格式</small>
+                                </div>
+                            </div>
+                            <div class="file-info" id="softwareFileInfo" style="display: none;"></div>
                         </div>
+
                         <div class="form-group">
-                            <label for="softwareIcon">图标类名</label>
-                            <input type="text" id="softwareIcon" placeholder="例: fas fa-code" value="fas fa-desktop">
+                            <label for="readmeFile">README文件</label>
+                            <div class="file-upload-area" id="readmeFileArea">
+                                <input type="file" id="readmeFile" accept=".md,.txt">
+                                <div class="upload-placeholder">
+                                    <i class="fas fa-file-alt"></i>
+                                    <p>点击选择或拖拽README.md文件</p>
+                                    <small>可选：软件说明文档</small>
+                                </div>
+                            </div>
+                            <div class="file-info" id="readmeFileInfo" style="display: none;"></div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="downloadUrl">下载链接 *</label>
-                        <input type="url" id="downloadUrl" placeholder="例: https://example.com/software.exe 或相对路径" required>
-                        <small>支持完整URL或相对路径（如: software/windows/app/file.exe）</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="softwareTags">标签（用逗号分隔）</label>
-                        <input type="text" id="softwareTags" placeholder="例: 编辑器, 开发工具, IDE">
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="softwareRating">评分（1-5）</label>
-                            <input type="number" id="softwareRating" min="1" max="5" step="0.1" placeholder="4.5">
+                    <!-- 软件信息 -->
+                    <div class="software-info-section">
+                        <h4><i class="fas fa-info-circle"></i> 软件信息</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="softwareName">软件名称 *</label>
+                                <input type="text" id="softwareName" placeholder="例: Visual Studio Code" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="softwareVersion">版本号 *</label>
+                                <input type="text" id="softwareVersion" placeholder="例: 1.0.0" required>
+                            </div>
                         </div>
+
                         <div class="form-group">
-                            <label for="lastUpdated">更新日期</label>
-                            <input type="date" id="lastUpdated">
+                            <label for="softwareDescription">软件描述 *</label>
+                            <textarea id="softwareDescription" placeholder="简短描述软件的功能和特点" required></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="softwarePlatform">平台 *</label>
+                                <select id="softwarePlatform" required>
+                                    <option value="">请选择平台</option>
+                                    <option value="windows">Windows</option>
+                                    <option value="macos">macOS</option>
+                                    <option value="linux">Linux</option>
+                                    <option value="mobile">移动端</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="softwareCategory">分类</label>
+                                <select id="softwareCategory">
+                                    <option value="development">开发工具</option>
+                                    <option value="browser">浏览器</option>
+                                    <option value="media">多媒体</option>
+                                    <option value="office">办公软件</option>
+                                    <option value="game">游戏</option>
+                                    <option value="utility">实用工具</option>
+                                    <option value="security">安全软件</option>
+                                    <option value="other">其他</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="softwareIcon">图标类名</label>
+                                <input type="text" id="softwareIcon" placeholder="例: fas fa-code" value="fas fa-desktop">
+                            </div>
+                            <div class="form-group">
+                                <label for="softwareRating">评分（1-5）</label>
+                                <input type="number" id="softwareRating" min="1" max="5" step="0.1" placeholder="4.5">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="softwareTags">标签（用逗号分隔）</label>
+                            <input type="text" id="softwareTags" placeholder="例: 编辑器, 开发工具, IDE">
                         </div>
                     </div>
 
                     <button type="submit" class="upload-btn">
-                        <i class="fas fa-plus"></i>
-                        生成软件代码
+                        <i class="fas fa-upload"></i>
+                        上传软件到GitHub
                     </button>
                 </form>
             </div>
