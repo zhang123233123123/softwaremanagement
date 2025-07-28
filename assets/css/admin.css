@@ -500,7 +500,309 @@
     border: 1px solid rgba(255, 59, 48, 0.3);
 }
 
+/* 可视化上传容器 */
+.upload-visual-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 16px;
+}
+
+.upload-card-visual {
+    background: var(--tertiary-system-background);
+    border: 2px dashed var(--separator);
+    border-radius: var(--radius-large);
+    padding: 32px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-card-visual:hover {
+    border-color: var(--system-blue);
+    background: rgba(0, 122, 255, 0.03);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 122, 255, 0.1);
+}
+
+.upload-card-visual.optional {
+    border-color: var(--system-orange);
+}
+
+.upload-card-visual.optional:hover {
+    border-color: var(--system-orange);
+    background: rgba(255, 149, 0, 0.03);
+}
+
+.upload-icon-large {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--system-blue), #0056CC);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(0, 122, 255, 0.2);
+}
+
+.upload-card-visual.optional .upload-icon-large {
+    background: linear-gradient(135deg, var(--system-orange), #CC7A00);
+    box-shadow: 0 8px 24px rgba(255, 149, 0, 0.2);
+}
+
+.upload-icon-large i {
+    font-size: 36px;
+    color: white;
+}
+
+.upload-card-visual h5 {
+    font-family: var(--sf-pro-display);
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000 !important;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.optional-label {
+    font-size: 14px;
+    color: var(--system-orange) !important;
+    font-weight: 500;
+}
+
+.visual-upload {
+    position: relative;
+    width: 100%;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+.upload-icon-circle {
+    width: 60px;
+    height: 60px;
+    background: var(--system-blue);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    transition: all 0.3s ease;
+}
+
+.upload-icon-circle i {
+    font-size: 24px;
+    color: white;
+}
+
+.visual-upload:hover .upload-icon-circle {
+    transform: scale(1.1);
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.3);
+}
+
+.upload-placeholder h6 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000 !important;
+    margin-bottom: 8px;
+}
+
+.upload-placeholder p {
+    font-size: 16px;
+    color: #666666 !important;
+    margin-bottom: 16px;
+}
+
+.upload-link {
+    color: var(--system-blue) !important;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.supported-formats {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.format-tag {
+    background: var(--system-gray6);
+    color: var(--label-secondary);
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 0.5px solid var(--separator);
+}
+
+.visual-file-info {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    background: var(--system-green);
+    color: white;
+    padding: 12px;
+    border-radius: var(--radius-medium);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 16px rgba(52, 199, 89, 0.3);
+}
+
+.visual-file-info .file-details {
+    flex: 1;
+}
+
+.visual-file-info .file-name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.visual-file-info .file-size {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* 密码修改模态框 */
+.password-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.password-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--system-background);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    box-shadow: var(--elevated-shadow);
+    width: 90%;
+    max-width: 400px;
+    border: 0.5px solid var(--separator);
+}
+
+.password-modal h3 {
+    font-family: var(--sf-pro-display);
+    font-size: 24px;
+    font-weight: 600;
+    color: #000000 !important;
+    margin-bottom: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.password-modal h3 i {
+    color: var(--system-blue);
+}
+
+.password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.password-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.cancel-btn {
+    flex: 1;
+    height: 44px;
+    background: var(--system-gray5);
+    color: var(--label-primary);
+    border: none;
+    border-radius: var(--radius-medium);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancel-btn:hover {
+    background: var(--system-gray4);
+}
+
+.save-btn {
+    flex: 1;
+    height: 44px;
+    background: linear-gradient(135deg, var(--system-blue), #0056CC);
+    color: white;
+    border: none;
+    border-radius: var(--radius-medium);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.save-btn:hover {
+    background: linear-gradient(135deg, #0056CC, var(--system-blue));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.3);
+}
+
 /* 响应式设计 */
+@media (max-width: 768px) {
+    .upload-visual-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .upload-card-visual {
+        min-height: 280px;
+        padding: 24px 16px;
+    }
+    
+    .upload-icon-large {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .upload-icon-large i {
+        font-size: 28px;
+    }
+    
+    .upload-card-visual h5 {
+        font-size: 18px;
+    }
+    
+    .password-modal-content {
+        padding: 24px;
+        width: 95%;
+    }
+}
+
 @media (max-width: 480px) {
     .login-card {
         padding: 24px;

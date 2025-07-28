@@ -1,7 +1,8 @@
 // 管理员后台JavaScript
 
 // 管理员密码（实际使用时应该加密存储）
-const ADMIN_PASSWORD = 'admin123456'; // 请修改为您的密码
+// 您可以在此处修改密码，或通过页面设置
+let ADMIN_PASSWORD = localStorage.getItem('admin_password') || 'admin123456';
 
 // 全局变量
 let uploadedFiles = {
@@ -606,6 +607,77 @@ setInterval(() => {
         devtools.open = false;
     }
 }, 500);
+
+// 显示密码修改模态框
+function showPasswordModal() {
+    document.getElementById('passwordModal').style.display = 'block';
+    document.getElementById('currentPassword').focus();
+}
+
+// 关闭密码修改模态框
+function closePasswordModal() {
+    document.getElementById('passwordModal').style.display = 'none';
+    // 清空表单
+    document.getElementById('currentPassword').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('confirmPassword').value = '';
+}
+
+// 处理密码修改
+function handlePasswordChange(event) {
+    event.preventDefault();
+    
+    const currentPassword = document.getElementById('currentPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    
+    // 验证当前密码
+    if (currentPassword !== ADMIN_PASSWORD) {
+        showAlert('当前密码错误！', 'error');
+        document.getElementById('currentPassword').focus();
+        return;
+    }
+    
+    // 验证新密码长度
+    if (newPassword.length < 6) {
+        showAlert('新密码长度至少需要6位！', 'error');
+        document.getElementById('newPassword').focus();
+        return;
+    }
+    
+    // 验证密码确认
+    if (newPassword !== confirmPassword) {
+        showAlert('两次输入的新密码不一致！', 'error');
+        document.getElementById('confirmPassword').focus();
+        return;
+    }
+    
+    // 不能与当前密码相同
+    if (newPassword === currentPassword) {
+        showAlert('新密码不能与当前密码相同！', 'error');
+        document.getElementById('newPassword').focus();
+        return;
+    }
+    
+    // 更新密码
+    ADMIN_PASSWORD = newPassword;
+    localStorage.setItem('admin_password', newPassword);
+    
+    showAlert('密码修改成功！', 'success');
+    
+    // 关闭模态框
+    setTimeout(() => {
+        closePasswordModal();
+    }, 1500);
+}
+
+// 点击模态框外部关闭
+window.addEventListener('click', function(event) {
+    const passwordModal = document.getElementById('passwordModal');
+    if (event.target === passwordModal) {
+        closePasswordModal();
+    }
+});
 
 // 禁用右键菜单（可选）
 document.addEventListener('contextmenu', function(e) {

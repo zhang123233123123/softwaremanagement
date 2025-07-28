@@ -509,20 +509,203 @@ cd ${software.name.toLowerCase().replace(/\s+/g, '-')}
 
     // 下载软件
     downloadSoftware(software) {
-        // 跟踪下载
+        console.log(`下载软件: ${software.name}`);
+        
+        // 显示收款码模态框，并在用户点击继续后才下载
+        this.showDonationModal(software);
+    }
+    
+    // 显示收款码模态框
+    showDonationModal(software) {
+        // 检查是否已经存在模态框
+        let donationModal = document.getElementById('donationModal');
+        if (!donationModal) {
+            donationModal = this.createDonationModal();
+            document.body.appendChild(donationModal);
+        }
+        
+        // 更新模态框内容
+        this.updateDonationModalContent(donationModal, software);
+        
+        // 显示模态框
+        donationModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // 创建收款码模态框
+    createDonationModal() {
+        const modal = document.createElement('div');
+        modal.id = 'donationModal';
+        modal.className = 'donation-modal';
+        modal.innerHTML = `
+            <div class="donation-modal-content">
+                <div class="donation-header">
+                    <h2><i class="fas fa-heart"></i> 支持我们的开发</h2>
+                    <button class="donation-close">&times;</button>
+                </div>
+                <div class="donation-body">
+                    <div class="donation-message">
+                        <p>感谢您下载使用我们的软件！</p>
+                        <p>如果您觉得我们的软件对您有帮助，欢迎支持我们的持续开发。</p>
+                    </div>
+                    <div class="donation-qrcodes">
+                        <div class="qrcode-item">
+                            <h3><i class="fab fa-weixin"></i> 微信支付</h3>
+                            <div class="qrcode-placeholder" id="wechatQR">
+                                <i class="fab fa-weixin"></i>
+                                <p>微信收款码</p>
+                                <small>请上传收款码图片</small>
+                            </div>
+                        </div>
+                        <div class="qrcode-item">
+                            <h3><i class="fab fa-alipay"></i> 支付宝</h3>
+                            <div class="qrcode-placeholder" id="alipayQR">
+                                <i class="fab fa-alipay"></i>
+                                <p>支付宝收款码</p>
+                                <small>请上传收款码图片</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="donation-actions">
+                        <button class="donation-btn secondary" id="skipDonation">
+                            <i class="fas fa-download"></i>
+                            直接下载
+                        </button>
+                        <button class="donation-btn primary" id="proceedDownload">
+                            已支付，继续下载
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // 设置事件监听器
+        this.setupDonationModalEvents(modal);
+        
+        return modal;
+    }
+    
+    // 更新收款码模态框内容
+    updateDonationModalContent(modal, software) {
+        // 存储当前软件信息
+        modal.dataset.softwareId = software.id;
+        modal.dataset.softwareName = software.name;
+        modal.dataset.downloadUrl = software.downloadUrl;
+        
+        // 更新标题
+        const header = modal.querySelector('.donation-header h2');
+        header.innerHTML = `<i class="fas fa-heart"></i> 支持「${software.name}」的开发`;
+        
+        // 加载收款码图片（如果存在）
+        this.loadDonationQRCodes(modal);
+    }
+    
+    // 加载收款码图片
+    loadDonationQRCodes(modal) {
+        // 尝试加载微信收款码
+        const wechatQR = modal.querySelector('#wechatQR');
+        const wechatImg = new Image();
+        wechatImg.onload = () => {
+            wechatQR.innerHTML = `<img src="assets/images/wechat-qr.jpg" alt="微信收款码" class="qrcode-image">`;
+        };
+        wechatImg.onerror = () => {
+            // 保持默认占位符
+        };
+        wechatImg.src = 'assets/images/wechat-qr.jpg';
+        
+        // 尝试加载支付宝收款码
+        const alipayQR = modal.querySelector('#alipayQR');
+        const alipayImg = new Image();
+        alipayImg.onload = () => {
+            alipayQR.innerHTML = `<img src="assets/images/alipay-qr.jpg" alt="支付宝收款码" class="qrcode-image">`;
+        };
+        alipayImg.onerror = () => {
+            // 保持默认占位符
+        };
+        alipayImg.src = 'assets/images/alipay-qr.jpg';
+    }
+    
+    // 设置收款码模态框事件
+    setupDonationModalEvents(modal) {
+        const closeBtn = modal.querySelector('.donation-close');
+        const skipBtn = modal.querySelector('#skipDonation');
+        const proceedBtn = modal.querySelector('#proceedDownload');
+        
+        // 关闭按钮
+        closeBtn.addEventListener('click', () => {
+            this.closeDonationModal();
+        });
+        
+        // 直接下载按钮
+        skipBtn.addEventListener('click', () => {
+            const softwareId = modal.dataset.softwareId;
+            const softwareName = modal.dataset.softwareName;
+            const downloadUrl = modal.dataset.downloadUrl;
+            
+            this.closeDonationModal();
+            this.proceedWithDownload({
+                id: softwareId,
+                name: softwareName,
+                downloadUrl: downloadUrl
+            });
+        });
+        
+        // 继续下载按钮
+        proceedBtn.addEventListener('click', () => {
+            const softwareId = modal.dataset.softwareId;
+            const softwareName = modal.dataset.softwareName;
+            const downloadUrl = modal.dataset.downloadUrl;
+            
+            // 显示感谢信息
+            this.showNotification('感谢您的支持！', 'success');
+            
+            this.closeDonationModal();
+            this.proceedWithDownload({
+                id: softwareId,
+                name: softwareName,
+                downloadUrl: downloadUrl
+            });
+        });
+    }
+    
+    // 关闭收款码模态框
+    closeDonationModal() {
+        const modal = document.getElementById('donationModal');
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+    
+    // 直接下载方法
+    proceedWithDownload(software) {
+        // 记录下载统计
         this.trackSoftwareDownload(software.id, software.name);
         
-        // 执行下载
+        // 显示下载通知
+        this.showDownloadNotification(software.name);
+        
+        // 检查是否是绝对路径或相对路径
+        let downloadUrl = software.downloadUrl;
+        
+        if (!downloadUrl.startsWith('http')) {
+            // 如果是相对路径，转换为绝对路径
+            const baseUrl = 'https://github.com/zhang123233123123/softwaremanagement/raw/main/';
+            downloadUrl = baseUrl + downloadUrl;
+        }
+        
+        // 创建下载链接
         const link = document.createElement('a');
-        link.href = software.downloadUrl.startsWith('http') ? 
-            software.downloadUrl : 
-            `https://github.com/zhang123233123123/softwaremanagement/raw/main/${software.downloadUrl}`;
+        link.href = downloadUrl;
         link.download = software.name;
         link.target = '_blank';
         
+        // 模拟点击下载
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        
+        console.log(`开始下载: ${downloadUrl}`);
     }
 
     // 显示下载通知
@@ -791,26 +974,30 @@ function showSoftwareReadme(softwareId) {
     }
 }
 
-// 重写下载函数以包含统计
+// 重写下载函数以包含收款码显示
 const originalDownloadSoftware = window.downloadSoftware;
 window.downloadSoftware = function(url, name) {
-    const software = softwareData.find(app => app.name === name);
+    const software = softwareData.find(app => app.name === name || app.downloadUrl === url);
     if (software && readmeViewer) {
-        readmeViewer.trackSoftwareDownload(software.id, name);
-    }
-    
-    // 执行原始下载逻辑
-    if (originalDownloadSoftware) {
-        originalDownloadSoftware(url, name);
+        readmeViewer.downloadSoftware(software);
     } else {
-        // 如果没有原始函数，执行默认下载
-        const link = document.createElement('a');
-        link.href = url.startsWith('http') ? url : `https://github.com/zhang123233123123/softwaremanagement/raw/main/${url}`;
-        link.download = name;
-        link.target = '_blank';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        // 如果没有找到软件信息，直接下载
+        if (readmeViewer) {
+            readmeViewer.proceedWithDownload({
+                id: Date.now(),
+                name: name,
+                downloadUrl: url
+            });
+        } else {
+            // 备用下载方法
+            const link = document.createElement('a');
+            link.href = url.startsWith('http') ? url : `https://github.com/zhang123233123123/softwaremanagement/raw/main/${url}`;
+            link.download = name;
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     }
 };
 

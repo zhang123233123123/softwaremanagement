@@ -634,3 +634,318 @@ pre code {
     }
 }
 
+/* 收款码模态框样式 */
+.donation-modal {
+    display: none;
+    position: fixed;
+    z-index: 3500;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s ease;
+}
+
+.donation-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--system-background);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--elevated-shadow);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 0.5px solid var(--separator);
+    animation: slideInUp 0.4s ease;
+}
+
+.donation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 0.5px solid var(--separator);
+    background: var(--secondary-system-background);
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.donation-header h2 {
+    font-family: var(--sf-pro-display);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--label-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.donation-header i {
+    color: var(--system-pink);
+    font-size: 20px;
+}
+
+.donation-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 16px;
+    background: var(--system-gray5);
+    color: var(--label-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 18px;
+}
+
+.donation-close:hover {
+    background: var(--system-gray4);
+    transform: scale(1.1);
+}
+
+.donation-body {
+    padding: 32px 24px;
+}
+
+.donation-message {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.donation-message p {
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--label-primary);
+    margin-bottom: 12px;
+}
+
+.donation-message p:first-child {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--system-blue);
+}
+
+.donation-qrcodes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.qrcode-item {
+    text-align: center;
+    background: var(--tertiary-system-background);
+    border-radius: var(--radius-large);
+    padding: 24px 16px;
+    border: 0.5px solid var(--separator);
+    transition: all 0.3s ease;
+}
+
+.qrcode-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.qrcode-item h3 {
+    font-family: var(--sf-pro-display);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--label-primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.qrcode-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    border: 2px dashed var(--separator);
+    border-radius: var(--radius-medium);
+    background: var(--system-background);
+    transition: all 0.3s ease;
+}
+
+.qrcode-placeholder:hover {
+    border-color: var(--system-blue);
+    background: rgba(0, 122, 255, 0.03);
+}
+
+.qrcode-placeholder i {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.qrcode-placeholder i.fa-weixin {
+    color: #07C160;
+}
+
+.qrcode-placeholder i.fa-alipay {
+    color: #1677FF;
+}
+
+.qrcode-placeholder p {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--label-primary);
+    margin-bottom: 8px;
+}
+
+.qrcode-placeholder small {
+    font-size: 13px;
+    color: var(--label-secondary);
+    opacity: 0.8;
+}
+
+.qrcode-image {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: var(--radius-medium);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.donation-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.donation-btn {
+    height: 48px;
+    padding: 0 32px;
+    border: none;
+    border-radius: var(--radius-medium);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 140px;
+}
+
+.donation-btn.primary {
+    background: linear-gradient(135deg, var(--system-pink), #D1006F);
+    color: white;
+    box-shadow: 0 4px 16px rgba(255, 45, 85, 0.3);
+}
+
+.donation-btn.primary:hover {
+    background: linear-gradient(135deg, #D1006F, var(--system-pink));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 45, 85, 0.4);
+}
+
+.donation-btn.secondary {
+    background: var(--system-gray5);
+    color: var(--label-primary);
+    border: 1px solid var(--separator);
+}
+
+.donation-btn.secondary:hover {
+    background: var(--system-gray4);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 动画 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .donation-modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+    
+    .donation-header {
+        padding: 20px;
+    }
+    
+    .donation-header h2 {
+        font-size: 20px;
+    }
+    
+    .donation-body {
+        padding: 24px 20px;
+    }
+    
+    .donation-qrcodes {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .qrcode-item {
+        padding: 20px;
+    }
+    
+    .qrcode-placeholder {
+        min-height: 180px;
+    }
+    
+    .donation-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .donation-btn {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .donation-modal-content {
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    
+    .donation-header {
+        padding: 16px;
+    }
+    
+    .donation-body {
+        padding: 20px 16px;
+    }
+    
+    .qrcode-placeholder {
+        min-height: 160px;
+    }
+    
+    .qrcode-placeholder i {
+        font-size: 36px;
+    }
+}
+

@@ -19,6 +19,7 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">返回首页</a></li>
+                <li><a href="#" onclick="showPasswordModal()">修改密码</a></li>
                 <li><a href="#" onclick="logout()">退出登录</a></li>
             </ul>
         </div>
@@ -76,30 +77,53 @@
                     <div class="file-upload-section">
                         <h4><i class="fas fa-upload"></i> 文件上传</h4>
                         
-                        <div class="form-group">
-                            <label for="softwareFile">软件文件 *</label>
-                            <div class="file-upload-area" id="softwareFileArea">
-                                <input type="file" id="softwareFile" accept=".exe,.msi,.dmg,.pkg,.deb,.rpm,.tar.gz,.zip,.apk,.ipa" required>
-                                <div class="upload-placeholder">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    <p>点击选择或拖拽软件文件到此处</p>
-                                    <small>支持 .exe, .dmg, .deb, .apk 等格式</small>
+                        <div class="upload-visual-container">
+                            <div class="upload-card-visual">
+                                <div class="upload-icon-large">
+                                    <i class="fas fa-laptop-code"></i>
                                 </div>
+                                <h5>软件文件 *</h5>
+                                <div class="file-upload-area visual-upload" id="softwareFileArea">
+                                    <input type="file" id="softwareFile" accept=".exe,.msi,.dmg,.pkg,.deb,.rpm,.tar.gz,.zip,.apk,.ipa" required>
+                                    <div class="upload-placeholder">
+                                        <div class="upload-icon-circle">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                        </div>
+                                        <h6>拖拽软件文件到此处</h6>
+                                        <p>或 <span class="upload-link">点击选择文件</span></p>
+                                        <div class="supported-formats">
+                                            <span class="format-tag">.exe</span>
+                                            <span class="format-tag">.dmg</span>
+                                            <span class="format-tag">.deb</span>
+                                            <span class="format-tag">.apk</span>
+                                            <span class="format-tag">更多...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="file-info visual-file-info" id="softwareFileInfo" style="display: none;"></div>
                             </div>
-                            <div class="file-info" id="softwareFileInfo" style="display: none;"></div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="readmeFile">README文件</label>
-                            <div class="file-upload-area" id="readmeFileArea">
-                                <input type="file" id="readmeFile" accept=".md,.txt">
-                                <div class="upload-placeholder">
+                            <div class="upload-card-visual optional">
+                                <div class="upload-icon-large">
                                     <i class="fas fa-file-alt"></i>
-                                    <p>点击选择或拖拽README.md文件</p>
-                                    <small>可选：软件说明文档</small>
                                 </div>
+                                <h5>README文档 <span class="optional-label">(可选)</span></h5>
+                                <div class="file-upload-area visual-upload" id="readmeFileArea">
+                                    <input type="file" id="readmeFile" accept=".md,.txt">
+                                    <div class="upload-placeholder">
+                                        <div class="upload-icon-circle">
+                                            <i class="fas fa-file-markdown"></i>
+                                        </div>
+                                        <h6>拖拽README文件到此处</h6>
+                                        <p>或 <span class="upload-link">点击选择文件</span></p>
+                                        <div class="supported-formats">
+                                            <span class="format-tag">.md</span>
+                                            <span class="format-tag">.txt</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="file-info visual-file-info" id="readmeFileInfo" style="display: none;"></div>
                             </div>
-                            <div class="file-info" id="readmeFileInfo" style="display: none;"></div>
                         </div>
                     </div>
 
@@ -206,6 +230,31 @@
                     <!-- 通过JavaScript动态加载 -->
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- 密码修改模态框 -->
+    <div class="password-modal" id="passwordModal">
+        <div class="password-modal-content">
+            <h3><i class="fas fa-key"></i> 修改管理员密码</h3>
+            <form class="password-form" onsubmit="handlePasswordChange(event)">
+                <div class="form-group">
+                    <label for="currentPassword">当前密码</label>
+                    <input type="password" id="currentPassword" placeholder="请输入当前密码" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">新密码</label>
+                    <input type="password" id="newPassword" placeholder="请输入新密码" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">确认新密码</label>
+                    <input type="password" id="confirmPassword" placeholder="请再次输入新密码" required>
+                </div>
+                <div class="password-actions">
+                    <button type="button" class="cancel-btn" onclick="closePasswordModal()">取消</button>
+                    <button type="submit" class="save-btn">保存密码</button>
+                </div>
+            </form>
         </div>
     </div>
 
