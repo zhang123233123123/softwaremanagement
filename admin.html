@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员后台 - 软件管理平台</title>
+    <link rel="stylesheet" href="assets/css/apple-style.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-cog"></i>
+                <span>管理后台</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">返回首页</a></li>
+                <li><a href="#" onclick="logout()">退出登录</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 登录界面 -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-card">
+            <div class="login-header">
+                <i class="fas fa-shield-alt"></i>
+                <h2>管理员登录</h2>
+                <p>请输入管理员密码以访问上传功能</p>
+            </div>
+            <form class="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="adminPassword">管理员密码</label>
+                    <input type="password" id="adminPassword" placeholder="请输入密码" required>
+                </div>
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    登录
+                </button>
+            </form>
+            <div class="login-footer">
+                <p><i class="fas fa-info-circle"></i> 提示：如果您忘记了密码，请联系系统管理员</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 管理界面 -->
+    <div class="admin-container" id="adminContainer" style="display: none;">
+        <div class="admin-header">
+            <h1><i class="fas fa-upload"></i> 软件上传管理</h1>
+            <p>在这里您可以添加新的软件到平台</p>
+        </div>
+
+        <!-- 软件上传表单 -->
+        <div class="upload-section">
+            <div class="upload-card">
+                <h3><i class="fas fa-plus-circle"></i> 添加新软件</h3>
+                <form class="upload-form" onsubmit="handleSoftwareUpload(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="softwareName">软件名称 *</label>
+                            <input type="text" id="softwareName" placeholder="例: Visual Studio Code" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="softwareVersion">版本号 *</label>
+                            <input type="text" id="softwareVersion" placeholder="例: 1.0.0" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="softwareDescription">软件描述 *</label>
+                        <textarea id="softwareDescription" placeholder="简短描述软件的功能和特点" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="softwarePlatform">平台 *</label>
+                            <select id="softwarePlatform" required>
+                                <option value="">请选择平台</option>
+                                <option value="windows">Windows</option>
+                                <option value="macos">macOS</option>
+                                <option value="linux">Linux</option>
+                                <option value="mobile">移动端</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="softwareCategory">分类</label>
+                            <select id="softwareCategory">
+                                <option value="development">开发工具</option>
+                                <option value="browser">浏览器</option>
+                                <option value="media">多媒体</option>
+                                <option value="office">办公软件</option>
+                                <option value="game">游戏</option>
+                                <option value="utility">实用工具</option>
+                                <option value="security">安全软件</option>
+                                <option value="other">其他</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="softwareSize">文件大小 *</label>
+                            <input type="text" id="softwareSize" placeholder="例: 95.2 MB" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="softwareIcon">图标类名</label>
+                            <input type="text" id="softwareIcon" placeholder="例: fas fa-code" value="fas fa-desktop">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="downloadUrl">下载链接 *</label>
+                        <input type="url" id="downloadUrl" placeholder="例: https://example.com/software.exe 或相对路径" required>
+                        <small>支持完整URL或相对路径（如: software/windows/app/file.exe）</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="softwareTags">标签（用逗号分隔）</label>
+                        <input type="text" id="softwareTags" placeholder="例: 编辑器, 开发工具, IDE">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="softwareRating">评分（1-5）</label>
+                            <input type="number" id="softwareRating" min="1" max="5" step="0.1" placeholder="4.5">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastUpdated">更新日期</label>
+                            <input type="date" id="lastUpdated">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="upload-btn">
+                        <i class="fas fa-plus"></i>
+                        生成软件代码
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 生成的代码展示 -->
+        <div class="code-section" id="codeSection" style="display: none;">
+            <div class="code-card">
+                <h3><i class="fas fa-code"></i> 生成的代码</h3>
+                <p>请将以下代码添加到 <code>assets/js/main.js</code> 文件的 <code>softwareData</code> 数组中：</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode()">
+                        <i class="fas fa-copy"></i> 复制代码
+                    </button>
+                    <pre id="generatedCode"></pre>
+                </div>
+                <div class="instructions">
+                    <h4><i class="fas fa-info-circle"></i> 使用说明：</h4>
+                    <ol>
+                        <li>复制上面的代码</li>
+                        <li>打开 <code>assets/js/main.js</code> 文件</li>
+                        <li>找到 <code>const softwareData = [</code> 行</li>
+                        <li>在数组中添加新的软件对象（注意逗号分隔）</li>
+                        <li>保存文件并提交到Git</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- 当前软件列表 -->
+        <div class="software-list-section">
+            <div class="software-list-card">
+                <h3><i class="fas fa-list"></i> 当前软件列表</h3>
+                <div id="currentSoftwareList" class="current-software">
+                    <!-- 通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
