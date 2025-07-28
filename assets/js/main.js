@@ -18,6 +18,24 @@ const softwareData = [
     //     rating: 4.5, // 可选：评分
     //     lastUpdated: "2024-01-15" // 更新日期
     // }
+    
+    // 示例软件（供测试使用，您可以删除此项）
+    {
+        id: 1,
+        name: "示例软件",
+        description: "这是一个示例软件，用于测试系统功能。您可以在管理后台上传真实软件后删除此项。",
+        platform: "windows",
+        icon: "fas fa-desktop",
+        version: "1.0.0",
+        size: "5 MB",
+        downloads: 0,
+        downloadUrl: "#",
+        screenshots: [],
+        category: "utility",
+        tags: ["示例", "测试"],
+        rating: 4.0,
+        lastUpdated: "2024-07-28"
+    }
 ];
 
 // DOM元素
