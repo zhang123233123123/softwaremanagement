@@ -1,39 +1,19 @@
-// 软件数据配置 - 空数组，等待用户添加真实软件
+// 软件数据配置 - 用户可以通过管理后台或手动添加软件
 const softwareData = [
-    // 用户将在此处添加真实的软件数据
-    // 示例格式：
-    // {
-    //     id: 1,  // 唯一ID
-    //     name: "软件名称",
-    //     description: "软件描述",
-    //     platform: "windows", // windows/macos/linux/mobile
-    //     icon: "fas fa-code", // FontAwesome图标
-    //     version: "1.0.0",
-    //     size: "50 MB",
-    //     downloads: 0, // 保持为0，系统会自动统计
-    //     downloadUrl: "software/platform/软件名/文件名.exe",
-    //     screenshots: [], // 可选：截图数组
-    //     category: "development", // 软件分类
-    //     tags: ["标签1", "标签2"], // 软件标签
-    //     rating: 4.5, // 可选：评分
-    //     lastUpdated: "2024-01-15" // 更新日期
-    // }
-    
-    // 示例软件（供测试使用，您可以删除此项）
     {
         id: 1,
-        name: "示例软件",
-        description: "这是一个示例软件，用于测试系统功能。您可以在管理后台上传真实软件后删除此项。",
-        platform: "windows",
-        icon: "fas fa-desktop",
+        name: "VideoPro+",
+        description: "一个简洁高效的视频播放器应用，支持多种视频解析器，让您轻松观看各种视频内容。",
+        platform: "mobile",
+        icon: "fas fa-play-circle",
         version: "1.0.0",
-        size: "5 MB",
+        size: "16 MB",
         downloads: 0,
-        downloadUrl: "#",
+        downloadUrl: "software/mobile/videoproplus/VideoPro+.apk",
         screenshots: [],
-        category: "utility",
-        tags: ["示例", "测试"],
-        rating: 4.0,
+        category: "media",
+        tags: ["视频播放器", "Android", "解析器", "媒体"],
+        rating: 4.8,
         lastUpdated: "2024-07-28"
     }
 ];
